@@ -25,47 +25,48 @@ try:
 except:
     print("Hmm seems like I cant all/few of your env vars , please create a .env file")
 
-ipaddr_obj = json.loads(requests.get("https://api64.ipify.org?format=json").text)
+ipaddr_obj = json.loads(requests.get(
+    "https://api64.ipify.org?format=json").text)
 prev = ipaddr_obj["ip"]
 
-#initial dns update : 
+# initial dns update :
 print("Updating DNS pointers!")
-        # Building CURL command:
+# Building CURL command:
 
-        headers = {
-            "X-Auth-Email": os.getenv("EMAIL"),
-            "X-Auth-Key": os.getenv("KEY"),
-            "Content-Type": "application/json",
-        }
+headers = {
+    "X-Auth-Email": os.getenv("EMAIL"),
+    "X-Auth-Key": os.getenv("KEY"),
+    "Content-Type": "application/json",
+}
+data = json.dumps(
+    {
+        "type": os.getenv("TYPE"),
+        "name": os.getenv("NAME"),
+        "content": prev,
+        "ttl": 1,
+    }
+)
+response = json.loads(
+    requests.put(
+        "https://api.cloudflare.com/client/v4/zones/"
+        + os.getenv("ZONE")
+        + "/dns_records/"
+        + os.getenv("ID"),
+        headers=headers,
+        data=data,
+    ).text
+)
+print(response["success"])
+if response["success"] == True:
+    print("IP Updated!")
+else:
+    print("Sorry!Something went wrong :( , check your env var")
 
-        data = json.dumps(
-            {
-                "type": os.getenv("TYPE"),
-                "name": os.getenv("NAME"),
-                "content": prev,
-                "ttl": 1,
-            }
-        )
-        response = json.loads(
-            requests.put(
-                "https://api.cloudflare.com/client/v4/zones/"
-                + os.getenv("ZONE")
-                + "/dns_records/"
-                + os.getenv("ID"),
-                headers=headers,
-                data=data,
-            ).text
-        )
-        print(response["success"])
-        if response["success"] == True:
-            print("IP Updated!")
-        else:
-            print("Sorry!Something went wrong :( , check your env var")
-            
-#looping check
+# looping check
 
 while True:
-    ipaddr_obj = json.loads(requests.get("https://api64.ipify.org?format=json").text)
+    ipaddr_obj = json.loads(requests.get(
+        "https://api64.ipify.org?format=json").text)
     current = ipaddr_obj["ip"]
     print("Your ip address currently :", current)
     print("IP has changed ? :", end="")
