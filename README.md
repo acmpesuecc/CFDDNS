@@ -2,8 +2,8 @@
 
 ## Getting started
 
-CloudFlare is a really good service to use as you dns, altho they dont provide service
-for ddns , and everyone deserves a domain without that "ddns" in thier domain.
+CloudFlare is a really good service to use as you dns, sadly they dont provide service
+for pointing your statc dns at your dynamic IP , everyone deserves a domain without that "ddns" in thier domain.
 
 Now , Using this python script you can get your self a cheap domain name, use cloudflare
 as DNS and make it works like a DDNS!.
