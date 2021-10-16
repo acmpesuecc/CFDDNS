@@ -57,7 +57,7 @@ response = json.loads(
     ).text
 )
 print(response["success"])
-if response["success"] == True:
+if response["success"]:
     print("IP Updated!")
 else:
     print("Sorry!Something went wrong :( , check your env var")
@@ -65,9 +65,12 @@ else:
 # looping check
 
 while True:
-    ipaddr_obj = json.loads(requests.get(
-        "https://api64.ipify.org?format=json").text)
-    current = ipaddr_obj["ip"]
+    try:
+        ipaddr_obj = json.loads(requests.get(
+            "https://api64.ipify.org?format=json").text)
+        current = ipaddr_obj["ip"]
+    except:
+        ipaddr_obj = requests.get('https://checkip.amazonaws.com').text.strip()
     print("Your ip address currently :", current)
     print("IP has changed ? :", end="")
     if prev != current:
