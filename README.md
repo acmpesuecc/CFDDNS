@@ -28,8 +28,27 @@ The API being used for ip change detection :
 https://www.ipify.org/
 Surprise Surpise , this website claim 99% uptime with unlimited requests!!!
 
-I also wanted to include some traceroute method for ip changin , maybe soon.
+## Instructions to perform a traceroute 
+### On Windows
 
-NOTE : I still havent handled all exceptions like no internet connection , I will
-add these soon
+1. Open cmd.
+2. Once the Terminal Box is open, type-<br>
+      **tracert example.com** <br>
+      *(replace example.com with your domain name)*
+3. It is also possible to run a traceroute using your access domain or IP:<br>
+   **tracert rcbi-b1hp.accessdomain.com<br>
+   tracert 64.13.192.208**<br>
+
+### On Mac
+
+1. Open the Terminal app.
+2. Once you have your Terminal box open, type<br>
+     **traceroute example.com**<br>
+    *(replace example.com with your domain name)* <br>
+3. It is also possible to run a traceroute using your access domain or IP.<br>
+   **traceroute rcbi-b1hp.accessdomain.com**
+
+
+You should get an output though this...<br> 
+If u get an output like  *** or **Request Time Out**, then you know there's likely a network related issue.<br> 
 
